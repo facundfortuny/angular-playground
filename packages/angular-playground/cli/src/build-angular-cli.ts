@@ -12,7 +12,8 @@ export async function buildAngularCli(appName: string, baseHref: string) {
 
     console.log('Building for production with sandboxes...');
     // Cannot build w/ AOT due to runtime compiler dependency
-    exec(`ng build ${appName} --prod --aot=false --base-href=${baseHref}`, (err, stdout, stderr) => {
+    exec(`ng build ${appName} --prod --aot=false --base-href=${baseHref}`, {maxBuffer: 1024 * 500},
+        (err, stdout, stderr) => {
         if (err) throw err;
         console.log(stdout);
     });
